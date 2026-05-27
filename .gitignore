@@ -1,0 +1,28 @@
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Configurações e Segredos (Segurança)
+.env
+.env.*
+
+# Arquivos Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Outputs
+outputs/
+
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
