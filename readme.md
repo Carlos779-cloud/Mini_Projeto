@@ -1,4 +1,4 @@
-# SrealesInsight PY
+# SalesInsight PY
 
 ## Sobre o projeto
 
@@ -88,9 +88,3 @@ produção, esses dados poderiam vir de uma API REST (ex.: uma requisição HTTP
 para um servidor que retorna JSON). O cliente (seu script Python) faria a requisição,
 o servidor processaria e retornaria os dados — seguindo a arquitetura cliente-servidor.
 Bibliotecas como `requests` permitem consumir essas APIs diretamente no Python.
-
-## Vídeo de demonstração
-
-[Inserir link do Google Drive ou YouTube aqui]
-
-Documento elaborado para a disciplina de IA – Desenvolvimento de IA para Análise Preditiva. Estrutura adaptada do Mini-Projeto de Front-End React – Módulo 01.
