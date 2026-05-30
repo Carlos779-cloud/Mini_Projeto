@@ -38,25 +38,38 @@ Praticar os principais conceitos do Módulo 01 de IA para Análise Preditiva:
 
 ### No Google Colab (recomendado)
 
-1. Faça upload do arquivo `salesinsight.py` e do `vendas.csv` para o Colab.
-2. Execute: `!python salesinsight.py`
-3. Ou cole o conteúdo diretamente em células de um notebook `.ipynb`.
+1. Faça upload do arquivo `salesinsight.ipynb` e do `vendas.csv` para o Colab.
+2. Execute as células do notebook ou o script via: `!python salesinsight.py`.
 
 ### Localmente com VS Code
 
 1. Instale o Python 3.10+ e o VS Code.
-2. Instale as dependências:
-pip install pandas numpy matplotlib seaborn
-3. Execute no terminal:
-python salesinsight.py
+2. Crie e ative um ambiente virtual:
+   ```bash
+   python -m venv venv
+   # Windows:
+   .\venv\Scripts\activate
+   # Linux/Mac:
+   source venv/bin/activate
+   ```
+3. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Execute o pipeline:
+   ```bash
+   python salesinsight.py
+   ```
 
 ## Estrutura do projeto
 
 salesinsight-py/
 │
-├── salesinsight.py         # Pipeline principal
+├── salesinsight.ipynb      # Notebook de desenvolvimento e análise
+├── salesinsight.py         # Script principal (versão exportada)
 ├── vendas.csv              # Dataset de vendas (gerado pelo próprio código ou externo)
 ├── README.md               # Este arquivo
+├── requirements.txt        # Dependências do projeto
 └── outputs/
  ├── metricas_por_mes.csv
  ├── segmentacao_clientes.csv
@@ -88,4 +101,3 @@ produção, esses dados poderiam vir de uma API REST (ex.: uma requisição HTTP
 para um servidor que retorna JSON). O cliente (seu script Python) faria a requisição,
 o servidor processaria e retornaria os dados — seguindo a arquitetura cliente-servidor.
 Bibliotecas como `requests` permitem consumir essas APIs diretamente no Python.
-# Mini_Projeto
