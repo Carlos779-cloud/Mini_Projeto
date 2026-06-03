@@ -183,3 +183,51 @@ def segmentar_clientes(df):
     print(clientes['segmento'].value_counts().reset_index())
 
     return clientes
+
+
+def calcular_estatisticas_numpy(df):
+    
+    """
+    Usa NumPy para calcular estatísticas sobre as receitas.
+    
+    """
+    print(f"{23*'='}\nESTATÍSTICAS COM NUMPY\n{23*'='}")
+
+    receitas = df["receita_total"].to_numpy()  # Converte para array NumPy
+
+    media = np.mean(receitas)
+    mediana = np.median(receitas)
+    desvio_padrao = np.std(receitas)
+    total = np.sum(receitas)
+    p25 = np.percentile(receitas, 25)
+    p75 = np.percentile(receitas, 75)
+
+    print(f"  Receita média por venda:    R$ {media:.2f}")
+    print(f"  Receita mediana por venda:  R$ {mediana:.2f}")
+    print(f"  Desvio padrão:              R$ {desvio_padrao:.2f}")
+    print(f"  Receita total:              R$ {total:.2f}")
+    print(f"  Percentil 25 (Q1):          R$ {p25:.2f}")
+    print(f"  Percentil 75 (Q3):          R$ {p75:.2f}")
+
+    # Broadcasting: normalizar receitas entre 0 e 1
+    receitas_normalizadas = (receitas - receitas.min()) / (receitas.max() - receitas.min())
+    print(f"\n  Receitas normalizadas (primeiros 5): {receitas_normalizadas[:5].round(4)}")
+
+    # Operação vetorizada: identificando quantidades sem loop
+    acima_da_media = receitas[receitas > media]
+    abaixo_da_media = receitas[receitas < media]
+    q1 = receitas[receitas < p25]
+    q2 = receitas[(receitas >= p25) & (receitas < mediana)]
+    q3 = receitas[(receitas >= mediana) & (receitas < p75)]
+    q4 = receitas[receitas > p75]
+    print(f"\n  Vendas acima da média: {len(acima_da_media)}")
+    print(f"  Vendas abaixo da média: {len(abaixo_da_media)}")
+    print(f"  Vendas no primeiro quartil: {len(q1)}")
+    print(f"  Vendas no segundo quartil: {len(q2)}")
+    print(f"  Vendas no terceiro quartil: {len(q3)}")
+    print(f"  Vendas no quarto quartil: {len(q3)}")
+
+    return {
+        "media": media, "mediana": mediana,
+        "desvio_padrao": desvio_padrao, "total": total
+    }
