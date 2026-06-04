@@ -1,16 +1,53 @@
-# Ambientes virtuais
+# ==========================================
+# 1. AMBIENTES VIRTUAIS (Local Virtual Envs)
+# ==========================================
+.venv/
 venv/
+ENV/
 env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
 
-# Cache do Python
+# ==========================================
+# 2. JUPYTER NOTEBOOKS (Metadados e Caches)
+# ==========================================
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# ==========================================
+# 3. PYTHON (Arquivos compilados e cache)
+# ==========================================
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
 
-# Notebooks
-.ipynb_checkpoints/
+# ==========================================
+# 4. ARQUIVOS DE DADOS (Segurança e Performance)
+# NUNCA suba bases de dados para o GitHub.
+# Seu pipeline gera os dados sintéticos localmente.
+# ==========================================
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.xlsx
+data/processed/*.csv
+data/processed/*.parquet
+*.csv
+*.xlsx
+*.parquet
+*.json
+*.sqlite3
 
-# Resultados da análise (Pasta de saída)
-outputs/
-
-# Dataset gerado (Como o script cria o vendas.csv, não é ideal versioná-lo se ele mudar sempre)
-vendas.csv
+# ==========================================
+# 5. IDEs E SISTEMA OPERACIONAL
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

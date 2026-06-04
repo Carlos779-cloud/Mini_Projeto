@@ -1,3 +1,5 @@
+from src.utils import *
+
 class AnalisadorDeVendas:
     """
     Classe responsável por encapsular o pipeline de análise de vendas.

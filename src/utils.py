@@ -9,6 +9,7 @@ import random
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import re
 
 # Ignorar avisos
 import warnings
@@ -130,6 +131,48 @@ def limpar_dados(df):
 
     return df, relatorio
 
+
+def calcular_metricas(df):
+    
+    """
+    Calcula e retorna métricas agregadas do dataset.
+    """
+    
+    metricas = {}
+
+    # Receita por mês
+    por_mes = df.groupby("mes").agg(
+        receita_total=("receita_total", "sum"),
+        quantidade=("quantidade", "sum"),
+        n_vendas=("id_venda", "count")
+    ).reset_index().sort_values("mes")
+    metricas["por_mes"] = por_mes
+
+    # Top 5 produtos por receita
+    top_produtos = df.groupby("produto")["receita_total"].sum()\
+                     .sort_values(ascending=False).head(5).reset_index()
+    metricas["top_produtos"] = top_produtos
+
+    # Receita por categoria
+    por_categoria = df.groupby("categoria")["receita_total"].sum().reset_index()
+    metricas["por_categoria"] = por_categoria
+
+    # Receita por região
+    por_regiao = df.groupby("regiao").agg(
+        receita_total=("receita_total", "sum"),
+        media_ticket=("receita_total", "mean")
+    ).reset_index().sort_values("receita_total", ascending=False)
+    metricas["por_regiao"] = por_regiao
+
+    # Exibição
+    print(f'\n{40*'*'} MÉTRICAS AGREGADAS {40*'*'}\n')
+    for nome, tabela in metricas.items():
+        comprimento = len(nome)
+        print(f"{comprimento * '='}\n{nome.upper().replace('_', ' ')}\n{comprimento * '='}")
+        print(tabela.to_string(index=False))
+        print(f'{100*'-'}\n')
+
+    return metricas
 
 def criar_colunas_derivadas(df):
     
@@ -259,8 +302,7 @@ def gerar_visualizacoes(df, metricas, output_dir="outputs/graficos"):
                          "Jul","Ago","Set","Out","Nov","Dez"], rotation=45)
     plt.tight_layout()
     caminho = os.path.join(output_dir, "vendas_por_mes.png")
-    plt.savefig(caminho, dpi=150)
-    plt.show()
+    plt.savefig(caminho, dpi=150)  
     plt.close()
     print(f"  Gráfico exportado: {caminho}\n")
 
@@ -275,8 +317,7 @@ def gerar_visualizacoes(df, metricas, output_dir="outputs/graficos"):
         ax.bar_label(container, fmt="R$ %.0f", padding=5)
     plt.tight_layout()
     caminho = os.path.join(output_dir, "top_produtos.png")
-    plt.savefig(caminho, dpi=150)
-    plt.show()
+    plt.savefig(caminho, dpi=150) 
     plt.close()
     print(f"  Gráfico exportado: {caminho}\n")
 
@@ -289,9 +330,62 @@ def gerar_visualizacoes(df, metricas, output_dir="outputs/graficos"):
     plt.xticks(rotation=30)
     plt.tight_layout()
     caminho = os.path.join(output_dir, "distribuicao_regioes.png")
-    plt.savefig(caminho, dpi=150)
-    plt.show()
+    plt.savefig(caminho, dpi=150)  
     plt.close()
     print(f"  Gráfico exportado: {caminho}")
 
     print(f"\n**VISUALIZAÇÕES GERADAS COM SUCESSO {60*'-'}")
+    
+
+
+def limpar_strings_com_regex(df):
+    """
+    Usa expressões regulares para limpeza de colunas de texto.
+    Exemplos: remover caracteres especiais, padronizar formatos.
+    """
+
+    # 1. Remover caracteres não alfanuméricos do nome do cliente (exceto underline e espaço)
+    df["cliente_limpo"] = df["cliente"].apply(
+        lambda s: re.sub(r"[^a-zA-Z0-9_ ]", "", str(s)).strip()
+    )
+
+    # 2. Identificar registros com padrão de ID inválido (deve ser "Cliente_XXX")
+    padrao_cliente = re.compile(r"^Cliente_\d{3}$")
+    df["cliente_valido"] = df["cliente_limpo"].apply(
+        lambda s: bool(padrao_cliente.match(s))
+    )
+
+    n_invalidos = (~df["cliente_valido"]).sum()
+    print(f"\n=== LIMPEZA COM REGEX ===")
+    print(f"  Clientes com formato inválido encontrados: {n_invalidos}")
+    print(f"  Amostra de clientes limpos: {df['cliente_limpo'].head(5).tolist()}")
+
+    return df
+
+import json
+
+def exportar_resultados(metricas, clientes, stats_numpy):
+    """Exporta resultados em CSV e JSON."""
+    os.makedirs("outputs", exist_ok=True)
+
+    # Exportar CSV com métricas por mês
+    caminho_csv = "outputs/metricas_por_mes.csv"
+    metricas["por_mes"].to_csv(caminho_csv, index=False, encoding="utf-8-sig")
+    print(f"  CSV exportado: {caminho_csv}")
+
+    # Exportar segmentação de clientes em CSV
+    caminho_clientes = "outputs/segmentacao_clientes.csv"
+    clientes.to_csv(caminho_clientes, index=False, encoding="utf-8-sig")
+    print(f"  CSV exportado: {caminho_clientes}")
+
+    # Exportar estatísticas gerais em JSON
+    caminho_json = "outputs/estatisticas_gerais.json"
+    stats_serializaveis = {k: round(float(v), 2) for k, v in stats_numpy.items()}
+    with open(caminho_json, "w", encoding="utf-8") as f:
+        json.dump(stats_serializaveis, f, indent=4, ensure_ascii=False)
+    print(f"  JSON exportado: {caminho_json}")
+
+    # Ler e exibir o JSON exportado para confirmar
+    with open(caminho_json, "r", encoding="utf-8") as f:
+        dados_lidos = json.load(f)
+    print(f"\n  Conteúdo do JSON exportado:\n  {json.dumps(dados_lidos, indent=2)}")

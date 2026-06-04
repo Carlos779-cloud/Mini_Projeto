@@ -1,5 +1,6 @@
 from pathlib import Path
 from src.utils import gerar_dataset_vendas
+from src.pipeline import *
 
 def main():
     """
@@ -23,6 +24,31 @@ def main():
         print(f"[INFO] Dataset gerado e salvo em: {ARQUIVO_VENDAS}")
     else:
         print(f"\n[INFO] Dataset já existe em: {ARQUIVO_VENDAS}")
+        
+    # Etapa 1 a 6: Pipeline via classe com herança
+    analisador = AnalisadorComProjecao(ARQUIVO_VENDAS, meses_projecao=3)
+    (analisador
+        .carregar()
+        .limpar()
+        .transformar()
+        .analisar()
+        .projetar_tendencia()
+        .visualizar()
+        .exportar_relatorio()
+    )
+    
+    # Etapa extra: limpeza com regex
+    analisador.df_limpo = limpar_strings_com_regex(analisador.df_limpo)
+
+
+    # Etapa extra: exportação JSON
+    stats = calcular_estatisticas_numpy(analisador.df_limpo)
+    exportar_resultados(analisador.metricas, analisador.clientes, stats)
+    
+        # Resumo final
+    analisador.resumo()
+    analisador.exibir_projecao_detalhada()
+
 
 
 
