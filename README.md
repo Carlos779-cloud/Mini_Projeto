@@ -6,6 +6,10 @@ O SalesInsight PY é um pipeline completo de análise de dados de vendas desenvo
 O sistema lê, limpa, transforma e visualiza um dataset de vendas, gerando métricas,
 segmentações e projeções simples de tendência.
 
+## Vídeo de demonstração
+
+[Inserir link do Google Drive ou YouTube aqui]
+
 ## O que o sistema analisa
 
 - Receita total e volume de vendas por mês e trimestre
@@ -34,74 +38,76 @@ Praticar os principais conceitos do Módulo 01 de IA para Análise Preditiva:
 - GitHub, branches, commits e GitFlow simplificado
 - Kanban para organização do projeto
 
-## Como executar
+## Estrutura do projeto:
 
-### No Google Colab (recomendado)
-
-1. Faça upload do arquivo `salesinsight.ipynb` e do `vendas.csv` para o Colab.
-2. Execute as células do notebook ou o script via: `!python salesinsight.py`.
-
-### Localmente com VS Code
-
-1. Instale o Python 3.10+ e o VS Code.
-2. Crie e ative um ambiente virtual:
-   ```bash
-   python -m venv venv
-   # Windows:
-   .\venv\Scripts\activate
-   # Linux/Mac:
-   source venv/bin/activate
-   ```
-3. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Execute o pipeline:
-   ```bash
-   python salesinsight.py
-   ```
-
-## Estrutura do projeto
-
-salesinsight-py/
+```text
+SalesInsight_PY/
 │
-├── salesinsight.ipynb      # Notebook de desenvolvimento e análise
-├── salesinsight.py         # Script principal (versão exportada)
-├── vendas.csv              # Dataset de vendas (gerado pelo próprio código ou externo)
-├── README.md               # Este arquivo
-├── requirements.txt        # Dependências do projeto
-└── outputs/
- ├── metricas_por_mes.csv
- ├── segmentacao_clientes.csv
- ├── estatisticas_gerais.json
- └── graficos/
-     ├── vendas_por_mes.png
-     ├── top_produtos.png
-     └── distribuicao_regioes.png
+├── data/                           
+│   ├── raw/                        # Dados sintéticos brutos gerados
+│   └── processed/                  # Dados após passarem pela limpeza
+│
+├── notebooks/                      # Espaço de experimentação
+|
+├──outputs                          # Saidas geradas pelo código
+|
+├── src/                            # Codigo Produtivo
+│   ├── __init__.py                 # Transforma a pasta src num pacote Python
+│   ├── pipeline.py                 # Classes do Pipeline de Dados
+│   ├── utils.py                    # Funções
+│   └── plots.py                    # Funções geradoras de gráficos
+│
+├── main.py                         # Importa do src e executa tudo
+├── .gitignore                      # Proteção de arquivos 
+├── requirements.txt                # Bibliotecas necessárias 
+└── README.md                       # Documentação do projeto
 
-## Ferramentas utilizadas
+```
 
-- Python 3.10+
-- Google Colab / VS Code
-- Bibliotecas: pandas, numpy, matplotlib, seaborn, re, json, datetime, os, random
-- GitHub + GitHub Desktop para versionamento
-- Trello / GitHub Projects para Kanban
 
-## Sobre var, let e const (Python equivalente)
+## Como Executar o Projeto (Via VS Code)
 
-Em Python, não existe a distinção entre `var`, `let` e `const` como no JavaScript.
-Toda variável é declarada com simples atribuição. Por convenção, constantes são
-escritas em MAIÚSCULAS (ex.: `CAMINHO_ARQUIVO = "vendas.csv"`).
-Para simular imutabilidade real, pode-se usar tuplas no lugar de listas.
+Este guia foi estruturado para que o projeto possa ser executado de forma idêntica tanto em ambiente **Linux (Ubuntu)** quanto **Windows**, utilizando o **VS Code** como interface padrão.
 
-## Como a internet funciona (contexto do projeto)
+### 1. Clonar o Repositório e Abrir no VS Code
+Abra o seu terminal de preferência e execute os comandos para baixar o projeto e abri-lo diretamente no VS Code:
 
-Neste projeto, os dados são lidos de um arquivo local CSV. Em um cenário real de
-produção, esses dados poderiam vir de uma API REST (ex.: uma requisição HTTP GET
-para um servidor que retorna JSON). O cliente (seu script Python) faria a requisição,
-o servidor processaria e retornaria os dados — seguindo a arquitetura cliente-servidor.
-Bibliotecas como `requests` permitem consumir essas APIs diretamente no Python.
+```bash
+git clone https://github.com/Carlos779-cloud/Mini_Projeto.git
+```
 
-## Vídeo de demonstração
+### 2. Instalar as Bibliotecas Necessárias
 
-[Inserir link do Google Drive ou YouTube aqui]
+Com o projeto aberto no VS Code, abra o terminal integrado da IDE (atalho: Ctrl + ' ou indo no menu superior em Terminal > New Terminal) e execute o comando abaixo para instalar as dependências do projeto:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Executar o Pipeline Principal
+
+Para rodar todo o ecossistema (geração de dados sintéticos, limpeza e análises), você tem duas opções simples no VS Code:
+
+  - Opção A (Via Terminal do VS Code)    
+    Digite o comando abaixo e pressione Enter:
+    
+    ```bash
+    python main.py
+    ```
+
+  - Opção B (Via Interface Visual):
+    
+    1 Abra o arquivo main.py na barra lateral do VS Code.
+    
+    2 Clique no botão de Play (Run Python File) localizado no canto superior direito da tela.
+
+## Tecnologias Utilizadas
+[![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com/)
+<br>
+[![Jupyter Notebook](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white)](https://jupyter.org/)
+<br>
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+<br>
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+<br>
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
