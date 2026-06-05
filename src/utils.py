@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import re
+import json
 
 # Ignorar avisos
 import warnings
@@ -362,7 +363,7 @@ def limpar_strings_com_regex(df):
 
     return df
 
-import json
+
 
 def exportar_resultados(metricas, clientes, stats_numpy):
     """Exporta resultados em CSV e JSON."""
@@ -389,3 +390,16 @@ def exportar_resultados(metricas, clientes, stats_numpy):
     with open(caminho_json, "r", encoding="utf-8") as f:
         dados_lidos = json.load(f)
     print(f"\n  Conteúdo do JSON exportado:\n  {json.dumps(dados_lidos, indent=2)}")
+    
+    
+    
+
+def processar_coluna(df, coluna, funcao_transformacao):
+    """
+    Aplica uma função de transformação a uma coluna do DataFrame.
+    Demonstra o uso de funções como argumentos (higher-order function / callback).
+    """
+    # Cria a nova coluna aplicando a função (callback) recebida
+    df[f"{coluna}_transformado"] = df[coluna].apply(funcao_transformacao)
+    print(f"  [Transformação] Coluna '{coluna}_transformado' criada com sucesso via callback.")
+    return df

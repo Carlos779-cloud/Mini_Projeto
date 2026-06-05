@@ -21,7 +21,7 @@ class AnalisadorDeVendas:
         print(f"[AnalisadorDeVendas] Arquivo carregado: {self.caminho_arquivo}")
         print(f"  Registros carregados: {len(self.df_bruto)}")
         return self
-
+    
     def limpar(self):
         """Limpa os dados e armazena o DataFrame tratado."""
         self.df_limpo, self.relatorio_limpeza = limpar_dados(self.df_bruto.copy())
@@ -31,7 +31,31 @@ class AnalisadorDeVendas:
         """Aplica transformações e cria colunas derivadas."""
         self.df_limpo = criar_colunas_derivadas(self.df_limpo)
         return self
-
+    
+    #Alterado método transformar para incluir lambdas e callbacks, conforme exigência
+    def transformar(self):
+        """Aplica transformações e cria colunas derivadas."""
+        # 1. Transformações originais do seu projeto
+        self.df_limpo = criar_colunas_derivadas(self.df_limpo)
+        
+        # 2. NOVA ETAPA: Exigência do Problema (Lambdas e Callbacks)
+        print("\n[AnalisadorDeVendas] Aplicando transformações via Lambdas (Callbacks)...")
+        
+        # Lambda 1: Converte a receita para a casa dos milhares e arredonda para 2 casas decimais
+        self.df_limpo = processar_coluna(
+            self.df_limpo, 
+            "receita_total", 
+            lambda x: round(x / 1000, 2)
+        )
+        
+        # Lambda 2: Categoriza a quantidade vendida
+        self.df_limpo = processar_coluna(
+            self.df_limpo, 
+            "quantidade", 
+            lambda x: "Alto" if x > 5 else "Baixo"
+        )
+        
+        return self
     def analisar(self):
         """Calcula métricas e segmentações."""
         self.metricas = calcular_metricas(self.df_limpo)
