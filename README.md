@@ -45,7 +45,6 @@ SalesInsight_PY/
 │
 ├── data/                           
 │   ├── raw/                        # Dados sintéticos brutos gerados
-│   └── processed/                  # Dados após passarem pela limpeza
 │
 ├── notebooks/                      # Espaço de experimentação
 |
@@ -55,7 +54,6 @@ SalesInsight_PY/
 │   ├── __init__.py                 # Transforma a pasta src num pacote Python
 │   ├── pipeline.py                 # Classes do Pipeline de Dados
 │   ├── utils.py                    # Funções
-│   └── plots.py                    # Funções geradoras de gráficos
 │
 ├── main.py                         # Importa do src e executa tudo
 ├── .gitignore                      # Proteção de arquivos 
