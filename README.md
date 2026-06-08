@@ -8,7 +8,7 @@ segmentações e projeções simples de tendência.
 
 ## Vídeo de demonstração
 
-[Inserir link do Google Drive ou YouTube aqui]
+[(https://drive.google.com/file/d/1Qr4tY0xXJDXS7UqQx9lhcko6wNV99m-5/view?usp=sharing)]
 
 ## O que o sistema analisa
 
@@ -74,9 +74,14 @@ Abra o seu terminal de preferência e execute os comandos para baixar o projeto 
 git clone https://github.com/Carlos779-cloud/Mini_Projeto.git
 ```
 
-### 2. Instalar as Bibliotecas Necessárias
+### 2. Instalar um ambiente virtual e as Bibliotecas Necessárias
 
-Com o projeto aberto no VS Code, abra o terminal integrado da IDE (atalho: Ctrl + ' ou indo no menu superior em Terminal > New Terminal) e execute o comando abaixo para instalar as dependências do projeto:
+Com o projeto aberto no VS Code, abra o terminal integrado da IDE (atalho: Ctrl + ' ou indo no menu superior em Terminal > New Terminal) e execute os comandos abaixo para instalar as dependências do projeto:
+
+```bash
+python -m venv venv
+```
+e em seguida
 
 ```bash
 pip install -r requirements.txt
