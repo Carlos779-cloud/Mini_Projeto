@@ -114,3 +114,10 @@ Para rodar todo o ecossistema (geração de dados sintéticos, limpeza e anális
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 <br>
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+
+
+## Autor
+
+- [<sub>**Carlos João Reinert**</sub>](https://github.com/Carlos779-cloud)
+- [<sub>**Denise Pasqualli**</sub>](https://github.com/denisepll) 
+- [<sub>**Jean K. Ribeiro**</sub>](https://github.com/JeanKahlilR) 
